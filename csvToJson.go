@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/csv"
 	"encoding/json"
+	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -69,4 +70,10 @@ func ReadCsvFile(path *string) ([]byte, string) {
 	newFileName = newFileName[0:len(newFileName)-len(filepath.Ext(newFileName))] + ".json"
 	r := filepath.Dir(*path)
 	return x, filepath.Join(r, newFileName)
+}
+
+func SaveToJsonFile(myFile []byte, path string) {
+	if err := ioutil.WriteFile(path, myFile, os.FileMode(0644)); err != nil {
+		panic(err)
+	}
 }
